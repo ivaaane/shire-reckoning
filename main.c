@@ -1,4 +1,5 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <time.h>
 
 struct Month {
 	char*	name;
@@ -29,7 +30,7 @@ struct Month months[] = {
 void calculate(int yday, int isleap, int* rmonth, int* rday) {
 	int days[ isleap ? 366 : 365 ][2];
 	int day = 0;
-	for(int i = 0; i < 17; i++) {
+	for(int i = 0; i < 18; i++) {
 		if (i == 9 && !isleap) continue;
 
 		int monthDays = months[i].isfull ? 30 : 1;
@@ -48,8 +49,9 @@ int main() {
 	int day;
 	int month;
 
-	int yday	= 268 + 10;
 	int isleap	= 1;
+	int yday	= localtime(&(time_t){time(NULL)})->tm_yday + 1;
+	yday		= (yday + 10) % (isleap ? 366 : 365);
 
 	calculate(yday, isleap, &month, &day);
 	printf("%s %i\n", months[month].name, day + 1);
