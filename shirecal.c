@@ -46,11 +46,15 @@ void calculate(int yday, int isleap, int* rmonth, int* rday) {
 }
 
 int main() {
+	time_t now = time(NULL);
+	struct tm* local = localtime(&now);
+
 	int day;
 	int month;
 
 	int isleap	= 1;
-	int yday	= localtime( &(time_t){ time(NULL) } )->tm_yday + 1;
+	int year	= local->tm_year + 1900;
+	int yday	= local->tm_yday + 1;
 	yday		= (yday + 10) % (isleap ? 366 : 365);
 	int wday	= (yday - (yday < 180 ? 0 : 2)) % 7;
 
@@ -59,5 +63,5 @@ int main() {
 	char week[7][10] = {"Sterday", "Sunday", "Monday", "Tewsday",
 		"Hevensday", "Mersday", "Highday"};
 
-	printf("%s %s %i\n", week[wday], months[month].name, day + 1);
+	printf("%s %s %i, %i of the Seventh Age\n", week[wday], months[month].name, day + 1, year);
 }
