@@ -50,9 +50,14 @@ int main() {
 	int month;
 
 	int isleap	= 1;
-	int yday	= localtime(&(time_t){time(NULL)})->tm_yday + 1;
+	int yday	= localtime( &(time_t){ time(NULL) } )->tm_yday + 1;
 	yday		= (yday + 10) % (isleap ? 366 : 365);
+	int wday	= (yday - (yday < 180 ? 0 : 2)) % 7;
 
 	calculate(yday, isleap, &month, &day);
-	printf("%s %i\n", months[month].name, day + 1);
+
+	char week[7][10] = {"Sterday", "Sunday", "Monday", "Tewsday",
+		"Hevensday", "Mersday", "Highday"};
+
+	printf("%s %s %i\n", week[wday], months[month].name, day + 1);
 }
