@@ -2,7 +2,7 @@
 #include <time.h>
 
 void calculate(int yday, int isleap, int* rmonth, int* day);
-void checkLeap(int year);
+int checkLeap(int year);
 
 struct Month {
 	char*	name;
@@ -48,7 +48,11 @@ int main() {
 	char week[7][10] = {"Sterday", "Sunday", "Monday", "Tewsday",
 		"Hevensday", "Mersday", "Highday"};
 
-	printf("%s %s %i, %i of the Seventh Age\n", week[wday], months[month].name, day + 1, year);
+	printf("%s %s %i, %i of the Seventh Age\n",
+		week[wday],
+		months[month].name,
+		day + 1,
+		year);
 }
 
 void calculate(int yday, int isleap, int* rmonth, int* rday) {
@@ -69,7 +73,7 @@ void calculate(int yday, int isleap, int* rmonth, int* rday) {
 	*rday = days[yday][1];
 }
 
-void checkLeap(int year) {
+int checkLeap(int year) {
 	if (year % 400 == 0) {
 		return 1;
 	} else if (year % 100 == 0) {
