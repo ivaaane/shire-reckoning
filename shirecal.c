@@ -48,11 +48,24 @@ int main() {
 	char week[7][10] = {"Sterday", "Sunday", "Monday", "Tewsday",
 		"Hevensday", "Mersday", "Highday"};
 
-	printf("%s %s %i, %i of the Seventh Age\n",
-		week[wday],
-		months[month].name,
-		day + 1,
-		year);
+	if (months[month].isfull == 0) {
+		if (months[month].name == "Mid-year's Day" || months[month].name == "Overlithe") {		
+			printf("%s, %i of the Seventh Age\n",
+				months[month].name,
+				year);
+		} else {
+			printf("%s %s, %i of the Seventh Age\n",
+				week[wday],
+				months[month].name,
+				year);
+		}
+	} else {
+		printf("%s %s %i, %i of the Seventh Age\n",
+			week[wday],
+			months[month].name,
+			day + 1,
+			year);
+	}
 }
 
 void calculate(int yday, int isleap, int* rmonth, int* rday) {
