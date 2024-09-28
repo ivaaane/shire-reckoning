@@ -1,10 +1,10 @@
 # Shire-reckoning
 
-Output the date in the Hobbit way, in the CLI way.
+Output the date the Hobbit way.
 
-The Shire-reckoning is described in the appendix of *The Lord Of The Rings: The Return Of The King*. It was the calendar used
+The Shire-reckoning is described in the appendix of *The Lord of the Rings: The Return of the King*. It was the calendar used
 by the Hobbits of the Shire in the Third Age. It consists of 12 months with 30 days each, plus 5-6 extra days: 1 & 2 Yule, 1 &
-2 Lithe, Mid-year's Day and Overlithe (in leap years). The year starts in December 21, but has the same length as the Gregorian
+2 Lithe, Mid-year's Day and Overlithe (in leap years). The year starts on December 21, but has the same length as the Gregorian
 calendar.
 
 ## More information
@@ -57,9 +57,7 @@ cd shire-reckoning
 sudo make install
 ```
 
-## Usage
-
-```sh
+```
 $ shirecal
 Mersday Winterhash 6, 2024 of the Seventh Age
 ```
