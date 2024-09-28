@@ -2,6 +2,7 @@
 #include <time.h>
 
 void calculate(int yday, int isleap, int* rmonth, int* day);
+void printDate(int day, int wday, int month, int year);
 int checkLeap(int year);
 
 struct Month {
@@ -34,38 +35,24 @@ int main() {
 	time_t now = time(NULL);
 	struct tm* local = localtime(&now);
 
-	int day;
-	int month;
-
 	int year	= local->tm_year + 1900;
 	int isleap	= checkLeap(year);
-	int yday	= local->tm_yday + 1;
-	yday		= (yday + 10) % (isleap ? 366 : 365);
+	int yday	= local->tm_yday;
+	yday		= (yday + 11) % (isleap ? 366 : 365);
 	int wday	= (yday - (yday < 180 ? 0 : 2)) % 7;
 
+	int day, month;
+
 	calculate(yday, isleap, &month, &day);
+	printDate(day, wday, month, year);
 
-	char week[7][10] = {"Sterday", "Sunday", "Monday", "Tewsday",
-		"Hevensday", "Mersday", "Highday"};
-
-	if (months[month].isfull == 0) {
-		if (months[month].name == "Mid-year's Day" || months[month].name == "Overlithe") {		
-			printf("%s, %i of the Seventh Age\n",
-				months[month].name,
-				year);
-		} else {
-			printf("%s %s, %i of the Seventh Age\n",
-				week[wday],
-				months[month].name,
-				year);
-		}
-	} else {
-		printf("%s %s %i, %i of the Seventh Age\n",
-			week[wday],
-			months[month].name,
-			day + 1,
-			year);
+//	== test ==
+/*	for(int i = 0; i < (isleap ? 366 : 365); i++) {
+		yday = (i + 11) % (isleap ? 366 : 365);
+		calculate(yday, isleap, &month, &day);
+		printDate(day, wday, month, year);
 	}
+*/
 }
 
 void calculate(int yday, int isleap, int* rmonth, int* rday) {
@@ -84,6 +71,18 @@ void calculate(int yday, int isleap, int* rmonth, int* rday) {
 
 	*rmonth	= days[yday][0];
 	*rday = days[yday][1];
+}
+
+void printDate(int day, int wday, int month, int year) {
+	char week[7][10] = {"Sterday", "Sunday", "Monday", "Tewsday", "Hevensday", "Mersday", "Highday"};
+	
+	if(months[month].name != "Mid-year's Day" || months[month].name != "Overlithe")
+		printf("%s ", week[wday]);
+		printf("%s ", months[month].name);
+	if(months[month].isfull != 0)
+		printf("%i, ", day + 1);
+		printf("%i ", year);
+	printf("of the Seventh Age\n");
 }
 
 int checkLeap(int year) {
